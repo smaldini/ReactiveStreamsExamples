@@ -46,23 +46,19 @@ public class Interop101 {
 		// Reactive Streams Publisher
 		final Publisher<String> stringPub = stringSource.runWith(Sink.fanoutPublisher(1, 1), mat);
 
-		// Reactor Stream
-		//Doesn't Works!
-		//final Stream<String> linesStream = Streams.wrap(stringPub).log("reactor.map").map(i -> i + "\n");
+		// Reactor Stream starting with START on the subscriber thread, then emits Akka Source with some log
+		final Stream<String> linesStream = Streams
+				.wrap(stringPub)
+				.startWith("START")
+				.log("reactor.map")
+				.map(i -> i + "\n");
 
-		//Works
-		final Stream<String> linesStream = Streams.wrap(intPub).log("reactor.map").map(i -> i + "\n");
-
-		//Works!
-		//Streams.wrap(stringPub).log("reactor.map.akka").map(i -> i + "\n").consume();
 
 		//A Ratpack http server
 		RatpackServer server = RatpackServer.of(spec -> spec
 						.handlers(chain -> chain
 										.get(":name", ctx ->
 														// and now render the HTTP response
-														//Doesnt works
-														//ctx.render(ResponseChunks.stringChunks(stringPub))
 														ctx.render(ResponseChunks.stringChunks(linesStream))
 										)
 						)
