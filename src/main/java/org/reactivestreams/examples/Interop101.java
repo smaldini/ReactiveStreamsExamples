@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Stephane Maldini
+ * Original credit and code Roland Kuhn: https://github.com/rkuhn/ReactiveStreamsInterop/blob/master/src/main/java/com/rolandkuhn/rsinterop/JavaMain.java
  */
 public class Interop101 {
 
