@@ -1,0 +1,49 @@
+ext {
+  slf4jVersion = '1.7.10'
+  logbackVersion = '1.1.2'
+
+
+  akkaStreamVersion = '1.0-M5'
+  reactorVersion = '2.0.1.BUILD-SNAPSHOT'
+  rxJavaVersion = '1.0.+'
+  rxJavaRSVersion = '0.3.0'
+  ratpackVersion = '0.9.15'
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+}
+
+apply plugin: 'java'
+
+[compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:none", "-g"]
+
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven { url 'http://repo.spring.io/libs-snapshot' }
+  jcenter()
+}
+
+dependencies {
+  compile "io.projectreactor:reactor-stream:$reactorVersion"
+  compile "io.projectreactor:reactor-net:$reactorVersion"
+
+  compile "io.reactivex:rxjava:$rxJavaVersion"
+  compile "io.reactivex:rxjava-reactive-streams:$rxJavaRSVersion"
+
+  compile "com.typesafe.akka:akka-stream-tck-experimental_2.11:$akkaStreamVersion"
+
+  compile "io.ratpack:ratpack-core:$ratpackVersion"
+
+  //log
+  compile "ch.qos.logback:logback-classic:$logbackVersion"
+  compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.3'
+}
+
+
+
