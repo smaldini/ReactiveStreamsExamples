@@ -95,7 +95,7 @@ public class Interop101 {
 		//fire the request
 		client.open();
 
-		//Await result
+		//Subscribe result with RxJava ReactiveStreams bridge
 		RxReactiveStreams
 				.toObservable(result)
 				.flatMap(Observable::from)
