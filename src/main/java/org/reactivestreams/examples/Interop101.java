@@ -5,9 +5,12 @@ import akka.stream.ActorFlowMaterializer;
 import akka.stream.FlowMaterializer;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
+
 import org.reactivestreams.Publisher;
+
 import ratpack.http.ResponseChunks;
 import ratpack.server.RatpackServer;
+
 import reactor.Environment;
 import reactor.io.codec.StringCodec;
 import reactor.io.net.NetStreams;
@@ -15,6 +18,7 @@ import reactor.io.net.http.HttpClient;
 import reactor.rx.Promise;
 import reactor.rx.Stream;
 import reactor.rx.Streams;
+
 import rx.Observable;
 import rx.RxReactiveStreams;
 import scala.runtime.BoxedUnit;
@@ -51,7 +55,7 @@ public class Interop101 {
 				.wrap(stringPub)
 				.startWith("START")
 				.log("reactor.map")
-				.map(i -> i + "\n");
+				.map(i -> i + "!");
 
 
 		//A Ratpack http server
@@ -88,7 +92,11 @@ public class Interop101 {
 		client.open();
 
 		//Await result
-		System.out.println(result.await().toString());
+		RxReactiveStreams
+				.toObservable(result)
+				.flatMap(Observable::from)
+				.toBlocking()
+				.forEach(System.out::println);
 
 		//shutdown server
 		server.stop();
