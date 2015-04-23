@@ -45,7 +45,10 @@ public class Interop101 {
 		final Publisher<Integer> intPub = RxReactiveStreams.toPublisher(intObs);
 
 		// Akka Streams Source
-		final Source<String, BoxedUnit> stringSource = Source.from(intPub).map(Object::toString);
+		final Source<String, BoxedUnit> stringSource = Source
+				.from(intPub)
+				.map(Object::toString)
+				.scan("", (prev, next) -> prev+next);
 
 		// Reactive Streams Publisher
 		final Publisher<String> stringPub = stringSource.runWith(Sink.fanoutPublisher(1, 1), mat);
