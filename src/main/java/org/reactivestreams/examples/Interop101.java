@@ -57,7 +57,6 @@ public class Interop101 {
 		// Reactor Stream starting with START on the subscriber thread, then emits Akka Source with some log
 		final Stream<String> linesStream = Streams
 				.wrap(stringPub)
-				.startWith("START")
 				.log("reactor.map")
 				.map(i -> i + "!");
 
@@ -67,7 +66,7 @@ public class Interop101 {
 						.handlers(chain -> chain
 										.get(":name", ctx ->
 														// and now render the HTTP response
-														ctx.render(ResponseChunks.stringChunks(linesStream))
+														ctx.render(ResponseChunks.stringChunks(ctx.stream(linesStream)))
 										)
 						)
 		);
