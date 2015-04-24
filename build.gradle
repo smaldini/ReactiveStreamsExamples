@@ -6,7 +6,7 @@ ext {
   akkaStreamVersion = '1.0-M5'
   reactorVersion = '2.0.1.BUILD-SNAPSHOT'
   rxJavaVersion = '1.0.+'
-  rxJavaRSVersion = '0.3.0'
+  rxJavaRSVersion = '0.5.0'
   ratpackVersion = '0.9.15'
 
   sourceCompatibility = 1.8
