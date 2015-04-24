@@ -27,7 +27,10 @@ repositories {
 
 dependencies {
   compile "io.projectreactor:reactor-stream:$reactorVersion"
-  compile "io.projectreactor:reactor-net:$reactorVersion"
+  compile "io.projectreactor:reactor-net:$reactorVersion", {
+    // Use Netty 4.1, dragged in by Ratpack
+    exclude group: "io.netty"
+  }
 
   compile "io.reactivex:rxjava:$rxJavaVersion"
   compile "io.reactivex:rxjava-reactive-streams:$rxJavaRSVersion"
