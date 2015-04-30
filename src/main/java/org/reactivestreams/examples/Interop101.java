@@ -79,7 +79,7 @@ public class Interop101 {
 						conf.connect("localhost", 5050).codec(new StringCodec())
 		);
 
-		//Prepare a get request that will only ping "anchorMan"
+		//Fire a get request that will only ping "anchorMan"
 		Promise<List<String>> result =
 				client.get("/anchorMan", ch -> Streams.empty())
 
@@ -90,9 +90,6 @@ public class Interop101 {
 										.log("reactor.replies")
 										.toList()
 						);
-
-		//fire the request
-		client.open();
 
 		//Subscribe result with RxJava ReactiveStreams bridge
 		RxReactiveStreams
