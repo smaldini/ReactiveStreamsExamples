@@ -80,9 +80,7 @@ public class Interop101 {
 		);
 
 		//Fire a get request that will only ping "anchorMan"
-		Promise<List<String>> result =
-				client.get("/anchorMan", ch -> Streams.empty())
-
+		Promise<List<String>> result = client.get("/anchorMan")
 						//flatten the chunked results amd aggregate into a single List "Promise"
 						.flatMap(replies ->
 										replies
