@@ -84,7 +84,6 @@ public class Interop101 {
 						//flatten the chunked results amd aggregate into a single List "Promise"
 						.flatMap(replies ->
 										replies
-										.timeout(3, TimeUnit.SECONDS, Streams.empty())
 										.log("reactor.replies")
 										.toList()
 						);
